@@ -9,69 +9,48 @@ namespace Example.App
     {
         static void Main(string[] args)
         {
-            var helper = new DatabaseHelper();
-            helper.InitializeDatabase();
-            helper.Seed();
-
-            Action<Document> consoleWriteAction = (el) =>
+            using (var helper = new DatabaseHelper())
             {
-                Console.WriteLine($"{el.Id} | {el.Content} | {el.CreatedAt:HH:mm:ss}");
-            };
+                helper.InitializeDatabase();
+                helper.Seed();
 
-            using (var ctx = new ExampleDbContext())
-            {
-                Console.WriteLine("-".PadRight(80, '-'));
-                Console.WriteLine("All elements");
-                Console.WriteLine("-".PadRight(80, '-'));
-                ctx.Documents.ToList().ForEach(consoleWriteAction);
-                
-                Console.WriteLine();
-
-                Console.WriteLine("-".PadRight(80, '-'));
-                Console.WriteLine("Sort Id descendant");
-                Console.WriteLine("-".PadRight(80, '-'));
-                ctx.Documents.Sort(nameof(Document.Id), false).ToList().ForEach(consoleWriteAction);
-
-                Console.WriteLine();
-
-                Console.WriteLine("-".PadRight(80, '-'));
-                Console.WriteLine("Sort CreatedAt ascendant");
-                Console.WriteLine("-".PadRight(80, '-'));
-                ctx.Documents.Sort(nameof(Document.CreatedAt),true).ToList().ForEach(consoleWriteAction);
-            }
-
-            Console.ReadLine();
-        }
-    }
-
-    public class DatabaseHelper
-    {
-
-        public void InitializeDatabase()
-        {
-            using (var ctx = new ExampleDbContext())
-            {
-                ctx.Database.EnsureCreated();
-            }
-        }
-
-
-        public void Seed()
-        {
-            
-            using (var ctx = new ExampleDbContext())
-            {
-                for (var id = 1; id <= 10; id++)
+                Action<Document> consoleWriteAction = (el) =>
                 {
-                    ctx.Documents.Add(new Document
-                    {
-                        Id = id,
-                        Content = $"{(char)(65 + (id % 2))}",
-                        CreatedAt = DateTimeOffset.UtcNow.AddSeconds(id),
-                    });
+                    Console.WriteLine($"{el.Id} | {el.Content} | {el.CreatedAt:HH:mm:ss}");
+                };
+
+                using (var ctx = new ExampleDbContext())
+                {
+                    Console.WriteLine("-".PadRight(80, '-'));
+                    Console.WriteLine("All elements");
+                    Console.WriteLine("-".PadRight(80, '-'));
+                    ctx.Documents.ToList().ForEach(consoleWriteAction);
+
+                    Console.WriteLine();
+
+                    Console.WriteLine("-".PadRight(80, '-'));
+                    Console.WriteLine("Sort Id descendant");
+                    Console.WriteLine("-".PadRight(80, '-'));
+                    ctx.Documents.Sort(nameof(Document.Id), false).ToList().ForEach(consoleWriteAction);
+
+                    Console.WriteLine();
+
+                    Console.WriteLine("-".PadRight(80, '-'));
+                    Console.WriteLine("Sort CreatedAt ascendant");
+                    Console.WriteLine("-".PadRight(80, '-'));
+                    ctx.Documents.Sort(nameof(Document.CreatedAt), true).ToList().ForEach(consoleWriteAction);
+
+                    Console.WriteLine();
+
+                    Console.WriteLine("-".PadRight(80, '-'));
+                    Console.WriteLine("Sort Content ascendant then Id descendant");
+                    Console.WriteLine("-".PadRight(80, '-'));
+                    ctx.Documents.Sort(nameof(Document.Content)).Sort(nameof(Document.Id), false).ToList().ForEach(consoleWriteAction);
+
+
                 }
 
-                ctx.SaveChanges();
+                Console.ReadLine();
             }
         }
     }

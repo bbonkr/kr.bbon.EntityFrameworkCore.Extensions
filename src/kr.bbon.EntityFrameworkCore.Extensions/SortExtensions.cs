@@ -35,9 +35,18 @@ namespace kr.bbon.EntityFrameworkCore.Extensions
                 throw new Exception($"Field {fieldName} does not exist in {typeof(T).FullName} Type.");
             }
 
-            return isAscending
+            if (query is IOrderedQueryable<T>)
+            {
+                return isAscending
+                    ? (query as IOrderedQueryable<T>).ThenBy(x => EF.Property<object>(x, actualFieldName))
+                    : (query as IOrderedQueryable<T>).ThenByDescending(x => EF.Property<object>(x, actualFieldName));
+            }
+            else
+            {
+                return isAscending
                     ? query.OrderBy(x => EF.Property<object>(x, actualFieldName))
                     : query.OrderByDescending(x => EF.Property<object>(x, actualFieldName));
+            }
         }
     }
 }
