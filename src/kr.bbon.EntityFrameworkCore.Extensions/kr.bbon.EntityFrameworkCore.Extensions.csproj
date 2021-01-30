@@ -13,7 +13,7 @@
       <RepositoryUrl>https://github.com/bbonkr/kr.bbon.EntityFrameworkCore.Extensions.git</RepositoryUrl>
       <RepositoryType>git</RepositoryType>
       <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-      <PackageIconUrl>http://bbon.kr/wp-content/uploads/2018/04/bbon-icon-1.png</PackageIconUrl>
+      <PackageIcon>http://bbon.kr/wp-content/uploads/2018/04/bbon-icon-1.png</PackageIcon>
   </PropertyGroup>
 
   <ItemGroup>
