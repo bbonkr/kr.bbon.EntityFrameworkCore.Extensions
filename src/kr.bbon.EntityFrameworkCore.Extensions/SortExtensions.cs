@@ -18,34 +18,31 @@ namespace kr.bbon.EntityFrameworkCore.Extensions
         /// <returns>An <see cref="IOrderedQueryable<out T>"/></returns>
         public static IOrderedQueryable<T> Sort<T>(this IQueryable<T> query, string fieldName, bool isAscending = true)
         {
-            var actualFieldName = String.Empty;
-
             var properties = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.GetField | BindingFlags.SetField);
 
-            foreach (var p in properties)
-            {
-                if (p.Name.Equals(fieldName, StringComparison.OrdinalIgnoreCase))
-                {
-                    actualFieldName = p.Name;
-                }
-            }
-
-            if (String.IsNullOrWhiteSpace(actualFieldName))
+            var actualField= properties.FirstOrDefault(p => p.Name.Equals(fieldName, StringComparison.OrdinalIgnoreCase));
+            
+            if (actualField == null)
             {
                 throw new Exception($"Field {fieldName} does not exist in {typeof(T).FullName} Type.");
             }
 
-            if (query is IOrderedQueryable<T>)
+            System.Linq.Expressions.Expression<Func<T, object>> expression = x => EF.Property<object>(x, actualField.Name);
+
+            if (query.Expression.Type == typeof(IOrderedQueryable<T>))
             {
-                return isAscending
-                    ? (query as IOrderedQueryable<T>).ThenBy(x => EF.Property<object>(x, actualFieldName))
-                    : (query as IOrderedQueryable<T>).ThenByDescending(x => EF.Property<object>(x, actualFieldName));
+                var orderedQueryable = query as IOrderedQueryable<T>;
+                {
+                    return isAscending
+                        ? orderedQueryable.ThenBy(expression)
+                        : orderedQueryable.ThenByDescending(expression);
+                }
             }
             else
             {
                 return isAscending
-                    ? query.OrderBy(x => EF.Property<object>(x, actualFieldName))
-                    : query.OrderByDescending(x => EF.Property<object>(x, actualFieldName));
+                    ? query.OrderBy(expression)
+                    : query.OrderByDescending(expression);
             }
         }
     }
