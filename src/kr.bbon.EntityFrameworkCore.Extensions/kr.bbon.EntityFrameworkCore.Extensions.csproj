@@ -1,10 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net5.0</TargetFramework>
+        <TargetFrameworks>net5.0;net6.0</TargetFrameworks>
         <PackageId>kr.bbon.EntityFrameworkCore.Extensions</PackageId>
         <Title>kr.bbon.EntityFrameworkCore.Extensions</Title>
-        <Version>1.1.0</Version>
+        <Version>1.2.0</Version>
         <Authors>Pon Cheol Ku (bbon@live.com)</Authors>
         <Company>bbon.kr</Company>
         <Copyright>bbon.kr. All rights reserved.</Copyright>
@@ -17,10 +17,15 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0" />
-    </ItemGroup>
-    <ItemGroup>
         <None Include="Images/icon.png" Pack="true" PackagePath="/" />
     </ItemGroup>
+
+    <ItemGroup Condition="'$(TargetFramework)' == 'net5.0'">
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0" />
+    </ItemGroup>
+    <ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0" />
+    </ItemGroup>
+   
 
 </Project>
