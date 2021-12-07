@@ -5,56 +5,12 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
+using kr.bbon.Core.Models;
+
 using Microsoft.EntityFrameworkCore;
 
 namespace kr.bbon.EntityFrameworkCore.Extensions
 {
-    public interface IPagedModel<TModel>
-    {
-        /// <summary>
-        /// Current page
-        /// </summary>
-        int CurrentPage { get; init; }
-
-        /// <summary>
-        /// Records
-        /// </summary>
-        IEnumerable<TModel> Items { get; init; }
-
-        /// <summary>
-        /// Items count per page
-        /// </summary>
-        int Limit { get; init; }
-
-        /// <summary>
-        /// Total items count
-        /// </summary>
-        int TotalItems { get; init; }
-
-        /// <summary>
-        /// Total page count
-        /// </summary>
-        int TotalPages { get; init; }
-    }
-
-    public class PagedModel<TModel> : IPagedModel<TModel>
-    {
-        /// <inheritdoc />
-        public int CurrentPage { get; init; }
-
-        /// <inheritdoc />
-        public int Limit { get; init; }
-
-        /// <inheritdoc />
-        public int TotalItems { get; init; }
-
-        /// <inheritdoc />
-        public int TotalPages { get; init; }
-
-        /// <inheritdoc />
-        public IEnumerable<TModel> Items { get; init; }
-    }
-
     public static class PagedModelExtensions
     {
         /// <summary>
@@ -79,7 +35,8 @@ namespace kr.bbon.EntityFrameworkCore.Extensions
             this IQueryable<TModel> query, 
             int page = PAGE, 
             int limit = LIMIT, 
-            CancellationToken cancellationToken = default) where TModel : class
+            CancellationToken cancellationToken = default) 
+            where TModel : class
         {
             if (limit < 1)
             {
@@ -113,10 +70,10 @@ namespace kr.bbon.EntityFrameworkCore.Extensions
         /// <param name="page"></param>
         /// <param name="limit"></param>
         /// <returns></returns>
-        public static TResult ToPagedModel<TModel, TResult>(
+        public static IPagedModel<TModel> ToPagedModel<TModel>(
             this IQueryable<TModel> query, 
             int page = PAGE, 
-            int limit = LIMIT) where TModel : class where TResult : class, IPagedModel<TModel>
+            int limit = LIMIT) where TModel : class 
         {
             if (limit < 1)
             {
@@ -140,7 +97,7 @@ namespace kr.bbon.EntityFrameworkCore.Extensions
                 TotalPages = totalPages,
             };
 
-            return result as TResult;
+            return result;
         }
     }
 }
