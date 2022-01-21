@@ -23,7 +23,7 @@ namespace kr.bbon.EntityFrameworkCore.Extensions
         public const int LIMIT = 10;
 
         /// <summary>
-        /// Get <see cref="IPagedModel{TModel}"/> instance of query result
+        /// Get <see cref="PagedModel{TModel}"/> instance of query result
         /// </summary>
         /// <typeparam name="TModel"></typeparam>
         /// <param name="query"></param>
@@ -31,7 +31,7 @@ namespace kr.bbon.EntityFrameworkCore.Extensions
         /// <param name="limit"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public static async Task<IPagedModel<TModel>> ToPagedModelAsync<TModel>(
+        public static async Task<PagedModel<TModel>> ToPagedModelAsync<TModel>(
             this IQueryable<TModel> query, 
             int page = PAGE, 
             int limit = LIMIT, 
@@ -51,7 +51,7 @@ namespace kr.bbon.EntityFrameworkCore.Extensions
 
             var items = await query.Skip(skip).Take(limit).ToListAsync(cancellationToken);
 
-            return new PagedModel<TModel>
+            var result = new PagedModel<TModel>
             {
                 CurrentPage = currentPage,
                 Items = items,
@@ -59,10 +59,12 @@ namespace kr.bbon.EntityFrameworkCore.Extensions
                 TotalItems = totalItems,
                 TotalPages = totalPages,
             };
+
+            return result;
         }
 
         /// <summary>
-        /// Get <see cref="IPagedModel{TModel}"/> instance of query result
+        /// Get <see cref="PagedModel{TModel}"/> instance of query result
         /// </summary>
         /// <typeparam name="TModel"></typeparam>
         /// <typeparam name="TResult"></typeparam>
@@ -70,7 +72,7 @@ namespace kr.bbon.EntityFrameworkCore.Extensions
         /// <param name="page"></param>
         /// <param name="limit"></param>
         /// <returns></returns>
-        public static IPagedModel<TModel> ToPagedModel<TModel>(
+        public static PagedModel<TModel> ToPagedModel<TModel>(
             this IQueryable<TModel> query, 
             int page = PAGE, 
             int limit = LIMIT) where TModel : class 
