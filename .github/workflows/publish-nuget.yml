@@ -32,7 +32,7 @@ jobs:
         uses: bbonkr/get-version-action@v1.0.1
         id: get_version
         with:
-          project: "$TARGET_PROJECT_PATH$TARGET_PROJECT_FILE" # src/kr.bbon.EntityFrameworkCore.Extensions/kr.bbon.EntityFrameworkCore.Extensions.csproj
+          project: "${{ jobs.publish.env.TARGET_PROJECT_PATH }}${{ jobs.publish.env.TARGET_PROJECT_FILE }}" 
 
       - name: Check git tag 
         uses: bbonkr/git-tag-check-action@v1.0.5
