@@ -4,7 +4,7 @@
         <TargetFrameworks>net5.0;net6.0</TargetFrameworks>
         <PackageId>kr.bbon.EntityFrameworkCore.Extensions</PackageId>
         <Title>kr.bbon.EntityFrameworkCore.Extensions</Title>
-        <Version>1.3.3</Version>
+        <Version>1.4.0</Version>
         <Authors>Pon Cheol Ku (bbon@live.com)</Authors>
         <Company>bbon.kr</Company>
         <Copyright>bbon.kr. All rights reserved.</Copyright>
@@ -21,21 +21,21 @@
     </ItemGroup>
 
     <ItemGroup Condition="'$(TargetFramework)' == 'net5.0'">
-        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0">
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.*">
             <IncludeAssets>all</IncludeAssets>
             <ExcludeAssets>contentFiles</ExcludeAssets>
             <PrivateAssets>contentFiles;analyzers</PrivateAssets>
         </PackageReference>
     </ItemGroup>
     <ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
-        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0">
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.*">
             <IncludeAssets>all</IncludeAssets>
             <ExcludeAssets>contentFiles</ExcludeAssets>
             <PrivateAssets>contentFiles;analyzers</PrivateAssets>
         </PackageReference>
     </ItemGroup>
     <ItemGroup>
-      <PackageReference Include="kr.bbon.Core" Version="1.4.0" />
+      <PackageReference Include="kr.bbon.Core" Version="1.4.*" />
     </ItemGroup>
    
 
