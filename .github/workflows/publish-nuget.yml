@@ -4,13 +4,15 @@ on:
   release:
     types: [published]
 
+env:
+  TARGET_PROJECT_PATH: src/kr.bbon.EntityFrameworkCore.Extensions/
+  TARGET_PROJECT_FILE: kr.bbon.EntityFrameworkCore.Extensions.csproj
+
 jobs:
   publish:
     name: 'Publish to nuget'
     runs-on: ubuntu-latest
-    env:
-      TARGET_PROJECT_PATH: src/kr.bbon.EntityFrameworkCore.Extensions/
-      TARGET_PROJECT_FILE: kr.bbon.EntityFrameworkCore.Extensions.csproj
+
     steps:
       - uses: actions/checkout@v2
 
@@ -32,7 +34,7 @@ jobs:
         uses: bbonkr/get-version-action@v1.0.1
         id: get_version
         with:
-          project: "${{ jobs.publish.env.TARGET_PROJECT_PATH }}${{ jobs.publish.env.TARGET_PROJECT_FILE }}" 
+          project: "${{ env.TARGET_PROJECT_PATH }}${{ env.TARGET_PROJECT_FILE }}" 
 
       - name: Check git tag 
         uses: bbonkr/git-tag-check-action@v1.0.5
