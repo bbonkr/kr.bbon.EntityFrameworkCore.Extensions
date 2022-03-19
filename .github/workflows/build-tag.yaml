@@ -3,21 +3,30 @@ on:
   push:
     branches:
       - main # Default release branch
+
+env:
+  TARGET_PROJECT_PATH: src/kr.bbon.EntityFrameworkCore.Extensions/
+  TARGET_PROJECT_FILE: kr.bbon.EntityFrameworkCore.Extensions.csproj
+
 jobs:
   publish:
     name: build, pack & publish
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout 
+        uses: actions/checkout@v2
 
       - name: Setup dotnet
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: 6.0.x
+
       - name: Restore dependencies
         run: dotnet restore
+
       - name: Build
         run: dotnet build --no-restore
+
 #       - name: Test
 #         run: dotnet test --no-build --verbosity normal
 
@@ -25,7 +34,7 @@ jobs:
         uses: bbonkr/get-version-action@v1.0.1
         id: get_version
         with:
-          project: src/kr.bbon.EntityFrameworkCore.Extensions/kr.bbon.EntityFrameworkCore.Extensions.csproj
+          project: "${{ env.TARGET_PROJECT_PATH }}${{ env.TARGET_PROJECT_FILE }}"
 
       - name: Check git tag 
         uses: bbonkr/git-tag-check-action@v1.0.9

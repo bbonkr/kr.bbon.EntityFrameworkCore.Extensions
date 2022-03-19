@@ -45,11 +45,11 @@ jobs:
 
       - name: Pack 
         run: |
-          dotnet pack "$TARGET_PROJECT_PATH$TARGET_PROJECT_FILE" -c Release
+          dotnet pack "${{ env.TARGET_PROJECT_PATH }}${{ env.TARGET_PROJECT_FILE }}" -c Release
 
       - name: Publish 
         run: |
-          dotnet nuget push "$TARGET_PROJECT_PATHbin/Release/*.nupkg" --api-key "${{ secrets.NUGET_API_KEY }}" --source https://api.nuget.org/v3/index.json --skip-duplicate
+          dotnet nuget push "${{ env.TARGET_PROJECT_PATH }}bin/Release/*.nupkg" --api-key "${{ secrets.NUGET_API_KEY }}" --source https://api.nuget.org/v3/index.json --skip-duplicate
 
       - name: Notify to slack
         uses: 8398a7/action-slack@v3
