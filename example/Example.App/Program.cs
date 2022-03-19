@@ -2,6 +2,7 @@
 using System.Linq;
 
 using kr.bbon.EntityFrameworkCore.Extensions;
+using Microsoft.EntityFrameworkCore;
 
 namespace Example.App
 {
@@ -47,6 +48,18 @@ namespace Example.App
                     Console.WriteLine("-".PadRight(80, '-'));
                     ctx.Documents.Sort(nameof(Document.Content)).Sort(nameof(Document.Id), false).ToList().ForEach(consoleWriteAction);
 
+                    Console.WriteLine();
+
+                    Console.WriteLine("-".PadRight(80, '-'));
+                    Console.WriteLine("Sort Content ascendant then Id descendant");
+                    Console.WriteLine("-".PadRight(80, '-'));
+                    ctx.Documents
+                        .Include(x => x.Author)
+                        // Not support
+                        // .Sort($"{nameof(Document.Author)}.{nameof(SubItem.Id)}")
+                        .Sort(x => x.Author.Id)
+                        .Sort($"{nameof(Document.Id)}")
+                        .ToList().ForEach(consoleWriteAction);
 
                 }
 
