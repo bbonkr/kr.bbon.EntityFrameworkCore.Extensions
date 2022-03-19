@@ -11,5 +11,19 @@ namespace Example.App
         {
             optionsBuilder.UseInMemoryDatabase("Example");
         }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<SubItem>()
+                .HasOne(x => x.Document)
+                .WithMany(x => x.Items)
+                .HasForeignKey(x => x.DocumentId);
+
+            modelBuilder.Entity<Document>()
+                .HasOne(x => x.Author)
+                .WithMany(x => x.Documents)
+                .HasForeignKey(x => x.AuthorId);
+
+        }
     }
 }

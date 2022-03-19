@@ -19,6 +19,15 @@ jobs:
       - name: Build
         run: dotnet build --no-restore
 
+      - name: Add comment 
+        uses: unsplash/comment-on-pr@v1.3.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          OUTPUT: "✅ This pull request is verified to build."
+        with:
+          msg: ${{ env.OUTPUT }}
+          check_for_duplicate_msg: false
+
       - name: Notify to slack
         uses: 8398a7/action-slack@v3
         with:
@@ -27,6 +36,7 @@ jobs:
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         if: always() # Pick up events even if the job fails or is canceled. 
+
       - name: Notify to Microsoft Teams
         uses: skitionek/notify-microsoft-teams@master
         if: always()

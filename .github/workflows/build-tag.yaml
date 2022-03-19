@@ -28,7 +28,7 @@ jobs:
           project: src/kr.bbon.EntityFrameworkCore.Extensions/kr.bbon.EntityFrameworkCore.Extensions.csproj
 
       - name: Check git tag 
-        uses: bbonkr/git-tag-check-action@v1.0.5
+        uses: bbonkr/git-tag-check-action@v1.0.9
         id: git_tag_check
         with:
           github_token: ${{ secrets.GH_TOKEN }}
