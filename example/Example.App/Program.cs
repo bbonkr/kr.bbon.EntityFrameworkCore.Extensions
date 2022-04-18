@@ -4,67 +4,66 @@ using System.Linq;
 using kr.bbon.EntityFrameworkCore.Extensions;
 using Microsoft.EntityFrameworkCore;
 
-namespace Example.App
+namespace Example.App;
+
+class Program
 {
-    class Program
+    static void Main(string[] args)
     {
-        static void Main(string[] args)
+        using (var helper = new DatabaseHelper())
         {
-            using (var helper = new DatabaseHelper())
+            helper.InitializeDatabase();
+            helper.Seed();
+
+            Action<Document> consoleWriteAction = (el) =>
             {
-                helper.InitializeDatabase();
-                helper.Seed();
+                Console.WriteLine($"{el.Id} | {el.Content} | {el.CreatedAt:HH:mm:ss}");
+            };
 
-                Action<Document> consoleWriteAction = (el) =>
-                {
-                    Console.WriteLine($"{el.Id} | {el.Content} | {el.CreatedAt:HH:mm:ss}");
-                };
+            using (var ctx = new ExampleDbContext())
+            {
+                Console.WriteLine("-".PadRight(80, '-'));
+                Console.WriteLine("All elements");
+                Console.WriteLine("-".PadRight(80, '-'));
+                ctx.Documents.ToList().ForEach(consoleWriteAction);
 
-                using (var ctx = new ExampleDbContext())
-                {
-                    Console.WriteLine("-".PadRight(80, '-'));
-                    Console.WriteLine("All elements");
-                    Console.WriteLine("-".PadRight(80, '-'));
-                    ctx.Documents.ToList().ForEach(consoleWriteAction);
+                Console.WriteLine();
 
-                    Console.WriteLine();
+                Console.WriteLine("-".PadRight(80, '-'));
+                Console.WriteLine("Sort Id descendant");
+                Console.WriteLine("-".PadRight(80, '-'));
+                ctx.Documents.Sort(nameof(Document.Id), false).ToList().ForEach(consoleWriteAction);
 
-                    Console.WriteLine("-".PadRight(80, '-'));
-                    Console.WriteLine("Sort Id descendant");
-                    Console.WriteLine("-".PadRight(80, '-'));
-                    ctx.Documents.Sort(nameof(Document.Id), false).ToList().ForEach(consoleWriteAction);
+                Console.WriteLine();
 
-                    Console.WriteLine();
+                Console.WriteLine("-".PadRight(80, '-'));
+                Console.WriteLine("Sort CreatedAt ascendant");
+                Console.WriteLine("-".PadRight(80, '-'));
+                ctx.Documents.Sort(nameof(Document.CreatedAt), true).ToList().ForEach(consoleWriteAction);
 
-                    Console.WriteLine("-".PadRight(80, '-'));
-                    Console.WriteLine("Sort CreatedAt ascendant");
-                    Console.WriteLine("-".PadRight(80, '-'));
-                    ctx.Documents.Sort(nameof(Document.CreatedAt), true).ToList().ForEach(consoleWriteAction);
+                Console.WriteLine();
 
-                    Console.WriteLine();
+                Console.WriteLine("-".PadRight(80, '-'));
+                Console.WriteLine("Sort Content ascendant then Id descendant");
+                Console.WriteLine("-".PadRight(80, '-'));
+                ctx.Documents.Sort(nameof(Document.Content)).Sort(nameof(Document.Id), false).ToList().ForEach(consoleWriteAction);
 
-                    Console.WriteLine("-".PadRight(80, '-'));
-                    Console.WriteLine("Sort Content ascendant then Id descendant");
-                    Console.WriteLine("-".PadRight(80, '-'));
-                    ctx.Documents.Sort(nameof(Document.Content)).Sort(nameof(Document.Id), false).ToList().ForEach(consoleWriteAction);
+                Console.WriteLine();
 
-                    Console.WriteLine();
+                Console.WriteLine("-".PadRight(80, '-'));
+                Console.WriteLine("Sort Content ascendant then Id descendant");
+                Console.WriteLine("-".PadRight(80, '-'));
+                ctx.Documents
+                    .Include(x => x.Author)
+                    // Not support
+                    // .Sort($"{nameof(Document.Author)}.{nameof(SubItem.Id)}")
+                    .Sort(x => x.Author.Id)
+                    .Sort($"{nameof(Document.Id)}")
+                    .ToList().ForEach(consoleWriteAction);
 
-                    Console.WriteLine("-".PadRight(80, '-'));
-                    Console.WriteLine("Sort Content ascendant then Id descendant");
-                    Console.WriteLine("-".PadRight(80, '-'));
-                    ctx.Documents
-                        .Include(x => x.Author)
-                        // Not support
-                        // .Sort($"{nameof(Document.Author)}.{nameof(SubItem.Id)}")
-                        .Sort(x => x.Author.Id)
-                        .Sort($"{nameof(Document.Id)}")
-                        .ToList().ForEach(consoleWriteAction);
-
-                }
-
-                Console.ReadLine();
             }
+
+            Console.ReadLine();
         }
     }
 }
