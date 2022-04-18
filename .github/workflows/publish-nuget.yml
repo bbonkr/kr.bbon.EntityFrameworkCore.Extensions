@@ -14,7 +14,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout 
+        uses: actions/checkout@v3
 
       - name: Setup dotnet
         uses: actions/setup-dotnet@v1
@@ -31,7 +32,7 @@ jobs:
 #         run: dotnet test --no-build --verbosity normal
 
       - name: Get version 
-        uses: bbonkr/get-version-action@v1.0.1
+        uses: bbonkr/get-version-action@v1.0.3
         id: get_version
         with:
           project: "${{ env.TARGET_PROJECT_PATH }}${{ env.TARGET_PROJECT_FILE }}" 

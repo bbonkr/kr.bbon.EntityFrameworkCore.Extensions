@@ -1,42 +1,42 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
-
-    <PropertyGroup>
-        <TargetFrameworks>net5.0;net6.0</TargetFrameworks>
-        <PackageId>kr.bbon.EntityFrameworkCore.Extensions</PackageId>
-        <Title>kr.bbon.EntityFrameworkCore.Extensions</Title>
-        <Version>1.4.4</Version>
-        <Authors>Pon Cheol Ku (bbon@live.com)</Authors>
-        <Company>bbon.kr</Company>
-        <Copyright>bbon.kr. All rights reserved.</Copyright>
-        <Description>Provider EntityFrameworkCore extensions.</Description>
-        <PackageTags>ef efcore kr.bbon bbon bbon.kr</PackageTags>
-        <RepositoryUrl>https://github.com/bbonkr/kr.bbon.EntityFrameworkCore.Extensions.git</RepositoryUrl>
-        <RepositoryType>git</RepositoryType>
-        <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-        <PackageIcon>icon.png</PackageIcon>
-    </PropertyGroup>
-
-    <ItemGroup>
-        <None Include="Images/icon.png" Pack="true" PackagePath="/" />
-    </ItemGroup>
-
-    <ItemGroup Condition="'$(TargetFramework)' == 'net5.0'">
-        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.*">
-            <IncludeAssets>all</IncludeAssets>
-            <ExcludeAssets>contentFiles</ExcludeAssets>
-            <PrivateAssets>contentFiles;analyzers</PrivateAssets>
-        </PackageReference>
-    </ItemGroup>
-    <ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
-        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.*">
-            <IncludeAssets>all</IncludeAssets>
-            <ExcludeAssets>contentFiles</ExcludeAssets>
-            <PrivateAssets>contentFiles;analyzers</PrivateAssets>
-        </PackageReference>
-    </ItemGroup>
-    <ItemGroup>
-      <PackageReference Include="kr.bbon.Core" Version="1.4.*" />
-    </ItemGroup>
-   
-
+	<PropertyGroup>
+		<TargetFrameworks>net5.0;net6.0</TargetFrameworks>
+		<PackageId>kr.bbon.EntityFrameworkCore.Extensions</PackageId>
+		<Title>kr.bbon.EntityFrameworkCore.Extensions</Title>
+		<Version>1.4.5</Version>
+		<Authors>Pon Cheol Ku (bbon@live.com)</Authors>
+		<Company>bbon.kr</Company>
+		<Copyright>bbon.kr. All rights reserved.</Copyright>
+		<Description>Provider EntityFrameworkCore extensions.</Description>
+		<PackageTags>ef efcore kr.bbon bbon bbon.kr</PackageTags>
+		<RepositoryUrl>https://github.com/bbonkr/kr.bbon.EntityFrameworkCore.Extensions.git</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+		<PackageIcon>icon.png</PackageIcon>
+	</PropertyGroup>
+	<ItemGroup>
+		<None Include="Images/icon.png" Pack="true" PackagePath="/" />
+	</ItemGroup>
+	<ItemGroup Condition="'$(TargetFramework)' == 'net5.0'">
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.*">
+			<IncludeAssets>all</IncludeAssets>
+			<ExcludeAssets>contentFiles</ExcludeAssets>
+			<PrivateAssets>contentFiles;analyzers</PrivateAssets>
+		</PackageReference>
+	</ItemGroup>
+	<ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.*">
+			<IncludeAssets>all</IncludeAssets>
+			<ExcludeAssets>contentFiles</ExcludeAssets>
+			<PrivateAssets>contentFiles;analyzers</PrivateAssets>
+		</PackageReference>
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="kr.bbon.Core" Version="1.4.*">
+			<IncludeAssets>all</IncludeAssets>
+			<ExcludeAssets>contentFiles</ExcludeAssets>
+			<PrivateAssets>contentFiles;analyzers</PrivateAssets>
+		</PackageReference>
+	</ItemGroup>
 </Project>
