@@ -30,10 +30,10 @@ namespace kr.bbon.EntityFrameworkCore.Extensions
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         public static async Task<PagedModel<TModel>> ToPagedModelAsync<TModel>(
-            this IQueryable<TModel> query, 
-            int page = PAGE, 
-            int limit = LIMIT, 
-            CancellationToken cancellationToken = default) 
+            this IQueryable<TModel> query,
+            int page = PAGE,
+            int limit = LIMIT,
+            CancellationToken cancellationToken = default)
             where TModel : class
         {
             if (limit < 1)
@@ -49,14 +49,7 @@ namespace kr.bbon.EntityFrameworkCore.Extensions
 
             var items = await query.Skip(skip).Take(limit).ToListAsync(cancellationToken);
 
-            var result = new PagedModel<TModel>
-            {
-                CurrentPage = currentPage,
-                Items = items,
-                Limit = limit,
-                TotalItems = totalItems,
-                TotalPages = totalPages,
-            };
+            var result = new PagedModel<TModel>(currentPage, limit, totalItems, totalPages, items);
 
             return result;
         }
@@ -71,9 +64,9 @@ namespace kr.bbon.EntityFrameworkCore.Extensions
         /// <param name="limit"></param>
         /// <returns></returns>
         public static PagedModel<TModel> ToPagedModel<TModel>(
-            this IQueryable<TModel> query, 
-            int page = PAGE, 
-            int limit = LIMIT) where TModel : class 
+            this IQueryable<TModel> query,
+            int page = PAGE,
+            int limit = LIMIT) where TModel : class
         {
             if (limit < 1)
             {
@@ -88,14 +81,7 @@ namespace kr.bbon.EntityFrameworkCore.Extensions
 
             var items = query.Skip(skip).Take(limit).ToList();
 
-            var result = new PagedModel<TModel>
-            {
-                CurrentPage = currentPage,
-                Items = items,
-                Limit = limit,
-                TotalItems = totalItems,
-                TotalPages = totalPages,
-            };
+            var result = new PagedModel<TModel>(currentPage, limit, totalItems, totalPages, items);
 
             return result;
         }
