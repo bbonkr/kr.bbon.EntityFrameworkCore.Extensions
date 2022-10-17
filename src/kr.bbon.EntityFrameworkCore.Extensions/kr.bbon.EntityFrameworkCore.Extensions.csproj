@@ -19,7 +19,7 @@
 		<None Include="Images/icon.png" Pack="true" PackagePath="/" />
 	</ItemGroup>
 	<ItemGroup Condition="'$(TargetFramework)' == 'net5.0'">
-		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.*">
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.*">
 			<IncludeAssets>all</IncludeAssets>
 			<ExcludeAssets>contentFiles</ExcludeAssets>
 			<PrivateAssets>contentFiles;analyzers</PrivateAssets>
