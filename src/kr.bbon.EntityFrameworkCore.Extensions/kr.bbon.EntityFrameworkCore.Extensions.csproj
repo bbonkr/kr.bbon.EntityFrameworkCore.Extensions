@@ -33,7 +33,7 @@
 		</PackageReference>
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="kr.bbon.Core" Version="1.5.*">
+		<PackageReference Include="kr.bbon.Core" Version="1.6.*">
 			<IncludeAssets>all</IncludeAssets>
 			<ExcludeAssets>contentFiles</ExcludeAssets>
 			<PrivateAssets>contentFiles;analyzers</PrivateAssets>
