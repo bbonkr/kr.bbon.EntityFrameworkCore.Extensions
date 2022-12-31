@@ -1,10 +1,10 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<TargetFrameworks>net5.0;net6.0;net7.0</TargetFrameworks>
 		<PackageId>kr.bbon.EntityFrameworkCore.Extensions</PackageId>
 		<Title>kr.bbon.EntityFrameworkCore.Extensions</Title>
-		<Version>1.5.0</Version>
+		<Version>1.5.1</Version>
 		<Authors>Pon Cheol Ku (bbon@live.com)</Authors>
 		<Company>bbon.kr</Company>
 		<Copyright>bbon.kr. All rights reserved.</Copyright>
@@ -33,7 +33,7 @@
 		</PackageReference>
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="kr.bbon.Core" Version="1.5.*">
+		<PackageReference Include="kr.bbon.Core" Version="1.6.*">
 			<IncludeAssets>all</IncludeAssets>
 			<ExcludeAssets>contentFiles</ExcludeAssets>
 			<PrivateAssets>contentFiles;analyzers</PrivateAssets>
