@@ -4,7 +4,7 @@
 		<TargetFrameworks>net5.0;net6.0;net7.0</TargetFrameworks>
 		<PackageId>kr.bbon.EntityFrameworkCore.Extensions</PackageId>
 		<Title>kr.bbon.EntityFrameworkCore.Extensions</Title>
-		<Version>1.5.2</Version>
+		<Version>1.5.3</Version>
 		<Authors>Pon Cheol Ku (bbon@live.com)</Authors>
 		<Company>bbon.kr</Company>
 		<Copyright>bbon.kr. All rights reserved.</Copyright>
@@ -14,11 +14,11 @@
 		<RepositoryType>git</RepositoryType>
 		<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
 		<PackageIcon>icon.png</PackageIcon>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
 	</PropertyGroup>
 	<ItemGroup>
 		<None Include="../../Images/icon.png" Pack="true" PackagePath="/" />
 		<None Include="../../README.md" pack="true" PackagePath="/" />
-		<None Include="../../CHANGES.md" pack="true" PackagePath="/" />
 	</ItemGroup>
 	<ItemGroup Condition="'$(TargetFramework)' == 'net5.0'">
 		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.*">
