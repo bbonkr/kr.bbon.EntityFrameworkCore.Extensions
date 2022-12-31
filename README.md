@@ -24,6 +24,35 @@ using(var ctx = new ExampleDbContext()){
 }
 ```
 
+### ToPagedModel method
+
+```csharp
+public class DocumentModel
+{
+
+}
+
+public class DocumentPagedModel : PagedModel<DocumentModel>
+{
+
+}
+
+//
+var page = 1;
+var limit = 10;
+
+using(var ctx = new ExampleDbContext()){
+    var result =ctx.Documents
+        .Select(x => new DocumentModel
+        {
+            //
+        })
+        .ToPagedModel<DocumentModel,DocumentPagedModel>(page, limit);
+
+    var items = result.Items; // You got paged items.
+}
+```
+
 ## License
 
 Follow the [.net license](https://dotnet.microsoft.com/platform/free) and the [Microsoft.EntityFrameworkCore](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore) license.
